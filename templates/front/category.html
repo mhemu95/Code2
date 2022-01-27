@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Categories</h3>
+            <div class="row">
+                {%for cat in category%}
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-image" src=" {{cat.category_image.url}} " alt=" {{cat.category_name}} ">
+                            <div class="card-body">
+                            <a href=" {% url 'collection' cat.category_slug %} "><h5 class="text-center"> {{cat.category_name}} </h5></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

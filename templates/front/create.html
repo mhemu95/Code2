@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} CarSite | Add {% endblock %}
+
+{% block content %}
+
+<div class="container" align="center">
+    <h3>Add a Product</h3>
+    <p>
+        <form action="", method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>category</label>
+            <select name="brand">
+                {% for cat in brand %}
+                    <option value="{{cat.id}}"> {{cat.name}} <option>
+                {% endfor %}
+            </select> <br> <br>
+            <label>prod_name</label>
+            <input type="text" required name="name" placeholder="enter product name">
+            <br><br>
+            <label>prod_slug</label>
+            <input type="text" required name="slug" placeholder="enter product slug">
+            <br><br>
+            <label>prod_price</label>
+            <input type="number" step="any" required name="price" placeholder="enter product price">
+            <br><br>
+            <label>offer_price</label>
+            <input type="number" step="any" name="offer" placeholder="enter offer price">
+            <br><br>
+            <label>prod_tag</label>
+            <input type="text" required name="tag" placeholder="enter product tag">
+            <br><br>
+            <label>prod_details</label>
+            <input type="text" name="details" placeholder="enter product details">
+            <br><br>
+            <label>Enter product image </label>
+            <input type="file" required name="image" accept="image/*">
+            <br><br>
+            <input type="submit" value="Create" class="btn-success">
+        </form>
+    </p>
+
+</div>
+
+{% endblock %}
