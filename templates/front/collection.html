@@ -1,18 +1,45 @@
 {% extends "base.html" %}
-
 {% load static %}
+
+{% block title %}
+CarSite | collections
+{% endblock title %}
 
 {% block content %}
 
-    <div class="card" style="width: 18rem;">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
         {% for item in prods %}
-            <img src=" {{item.prod_img.url}} " class="card-img-top" alt="{{item.prod_name}}">
-            <div class="card-body">
-                <h5 class="card-title"> {{item.prod_name}} </h5>
-                <p class="card-text"> {{item.prod_details}} </p>
-                <a href=" {% url "single" item.prod_slug %} " class="btn btn-primary">See Details</a>
+
+            <div class="card" style="width: 18rem;">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        
+                        <img class="card-img-top" src="{{item.prod_img.url}}" alt="{{item.prod_name}}" />
+                        
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ item.prod_name }}</h5>
+                                <!-- Product price-->
+                                ${{ item.prod_price }}
+                            </div>
+                        </div>
+                        
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" href=" {% url 'single' item.prod_slug %} ">View Details</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+    
         {% endfor %}
+
     </div>
 
 {% endblock content %}
