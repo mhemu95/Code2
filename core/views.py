@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Brand
-from .forms import ProductForm 
+from .models import Product, Brand, Category
+from .forms import ProductForm
 
 
-
+# home
 def home(request):
     products = Product.objects.all()
 
@@ -13,6 +14,7 @@ def home(request):
     return render(request, 'front/home.html', context)
 
 
+# detail view
 def singlePost(request, slug):
     single = get_object_or_404(Product, prod_slug=slug)
 
@@ -23,29 +25,63 @@ def singlePost(request, slug):
     return render(request, 'front/single.html', context)
 
 
+# about site
 def about(request):
 
     return render(request, 'front/about.html')
 
 
-## category
+# car brands
 def brand(request):
     brand = Brand.objects.filter(brand_status=True)
 
-    context={
-        'brand':brand,
+    context = {
+        'brand': brand,
     }
 
     return render(request, 'front/brands.html', context)
 
 
-### add a product 
+# product categories
+def category(request):
+    category = Category.objects.all()
+
+    context = {
+        'category': category
+    }
+
+    return render(request, 'front/category.html', context)
+
+
+# products by brand
+def collections(request, slug):
+    prods = Product.objects.filter(brands__brand_slug=slug)
+
+    context = {
+        'prods': prods,
+    }
+
+    return render(request, 'front/collection.html', context)
+
+
+# products by category
+def prodByCat(request, slug):
+    category = Product.objects.filter(category__category_slug=slug)
+
+    context = {
+        'category2': category,
+    }
+
+    return render(request, 'front/collection2.html', context)
+
+
+# add a product CRUD
 def addProduct(request):
-    
+
     brand = Brand.objects.all()
 
     context = {
-        "brand":brand
+        "brand": brand
     }
 
     if request.method == 'POST':
@@ -60,18 +96,9 @@ def addProduct(request):
             o = Product(offer_price=offer)
             o.save()
 
-        p = Product.objects.create(prod_name=name, prod_slug=slug, prod_price=price, prod_tag=tag, prod_details=details, prod_img=img)
+        p = Product.objects.create(prod_name=name, prod_slug=slug,
+                                   prod_price=price, prod_tag=tag, prod_details=details, prod_img=img)
         p.save()
         return redirect('home')
-    
+
     return render(request, 'front/create.html', context)
-
-
-def collections(request, slug):
-    prods = Product.objects.filter(brands__brand_slug=slug)
-
-    context = {
-       'prods': prods,
-    }
-
-    return render(request, 'front/collection.html', context)

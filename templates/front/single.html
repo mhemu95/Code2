@@ -9,11 +9,12 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{single.prod_img.url}}" alt="{{single.prod_name}}" /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">{{single.prod_tag}}</div>
+                        <div class="small mb-1"> Tag : {{single.prod_tag}}</div>
                         <!--SKU: BST-498-->
                         <h1 class="display-5 fw-bolder">{{single.prod_name}}</h1>
+                        <div class="small mb-1"> Category : {{single.category}}</div>
                         <div class="fs-5 mb-5">
-                            <span>Original Price: ${{single.prod_price}}</span> <br>
+                            <span>Price: ${{single.prod_price}}</span> <br>
                             {% if single.offer_price %}
                             <span>Offer Price: ${{single.offer_price}}</span>
                             {% endif %}

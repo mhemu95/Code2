@@ -1,1 +1,39 @@
-this is the brands page
+{% extends "base.html" %}
+
+{% block title %}
+CarSite | Brands
+{% endblock title %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    
+    {% for b in brand %}
+    
+    <div class="col mb-5">
+        <div class="card h-100" style="width: 18rem;">
+
+            <!-- Product image-->
+            <img class="card-img-top" src="{{b.brand_image.url}}" alt="{{b.brand_name}}" />
+
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder">{{ b.brand_name }}</h5>
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="{% url "collection" b.brand_slug %}">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %}
+
+</div>
+
+{% endblock content %}
