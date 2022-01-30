@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+app_name = "core"
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
@@ -9,7 +10,7 @@ urlpatterns = [
     path('<str:slug>/', views.singlePost, name='single'),
 
     # create a product (CRUD operation)
-    path('product/add/', views.addProduct, name='add'),
+    #path('product/add/', views.addProduct, name='add'),
 
     # products by brand
     path('collection/<slug:slug>/', views.collections, name='collection'),
