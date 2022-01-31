@@ -75,6 +75,17 @@ def prodByCat(request, slug):
     return render(request, 'front/collection2.html', context)
 
 
+# search
+def search(request):
+    query = request.GET['q']
+    data = Product.objects.filter(prod_name__icontains = query)
+
+    context = {
+        'data': data
+    }
+    return render(request, 'front/search.html', context)
+
+
 # add a product CRUD
 def addProduct(request):
 

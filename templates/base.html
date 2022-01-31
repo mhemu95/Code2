@@ -36,6 +36,9 @@
                             </ul>
                         </li>
                     </ul>
+                    <form class="d-flex" action="{% url 'core:search' %}" method=get">
+                        <input class="form-control me-2" name="q" type="text" placeholder="Search">
+                    </form>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
