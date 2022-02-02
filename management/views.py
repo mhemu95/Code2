@@ -11,3 +11,4 @@ def ProductLIst(request):
     }
 
     return render(request, 'back/list.html', context)
+
