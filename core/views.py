@@ -87,7 +87,7 @@ def search(request):
 
 
 # add a product CRUD
-def addProduct(request):
+'''def addProduct(request):
 
     brand = Brand.objects.all()
 
@@ -112,4 +112,37 @@ def addProduct(request):
         p.save()
         return redirect('home')
 
-    return render(request, 'front/create.html', context)
+    return render(request, 'front/create.html', context) ''' 
+
+
+# add a product by form CRUD 
+def addProduct(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("panel:list")
+
+    return render(request, 'front/create.html', {'form': form})
+
+
+# update a product by form CRUD
+def updateProduct(request, slug):
+    if request.method == 'POST':
+        name = request.POST['name']
+        slug = request.POST['slug']
+        price = request.POST['price']
+        tag = request.POST['tag']
+        details = request.POST['details']
+        img = request.FILES['image']
+        if len(request.POST['offer']) != 0:
+            offer = request.POST['offer']
+            o = Product(offer_price=offer)
+            o.save()
+
+        p = Product.objects.create(prod_name=name, prod_slug=slug,
+                                   prod_price=price, prod_tag=tag, prod_details=details, prod_img=img)
+        p.save()
+    
+    return render(request, 'back/updateProduct.html')

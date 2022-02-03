@@ -4,7 +4,7 @@
 {% block title %} CarSite | Add {% endblock %}
 
 {% block content %}
-
+<!--
 <div class="container" align="center">
     <h3>Add a Product</h3>
     <p>
@@ -43,5 +43,13 @@
     </p>
 
 </div>
+-->
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Create">
+    <a href="">Cancel</a>
+</form>
 
 {% endblock %}
