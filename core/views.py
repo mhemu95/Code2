@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Brand, Category
-from .forms import ProductForm
+from .forms import BrandForm, CategoryForm, ProductForm
 
 
 # home
@@ -78,7 +78,7 @@ def prodByCat(request, slug):
 # search
 def search(request):
     query = request.GET['q']
-    data = Product.objects.filter(prod_name__icontains = query)
+    data = Product.objects.filter(prod_name__icontains=query)
 
     context = {
         'data': data
@@ -87,7 +87,7 @@ def search(request):
 
 
 # add a product CRUD
-def addProduct(request):
+'''def addProduct(request):
 
     brand = Brand.objects.all()
 
@@ -112,4 +112,61 @@ def addProduct(request):
         p.save()
         return redirect('home')
 
-    return render(request, 'front/create.html', context)
+    return render(request, 'front/create.html', context) '''
+
+
+# add a product by form CRUD
+def addProduct(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("core:home")
+
+    return render(request, 'front/create.html', {'form': form})
+
+
+# add a category by form crud
+def addCategory(request):
+    cform = CategoryForm()
+    if request.method == 'POST':
+        cform = CategoryForm(request.POST)
+        if cform.is_valid():
+            cform.save()
+            return redirect("core:category")
+
+    return render(request, 'back/Create_Category.html', {'cform': cform})
+
+
+# add a brand by form crud
+def addBrand(request):
+    bform = BrandForm()
+    if request.method == 'POST':
+        bform = BrandForm(request.POST, request.FILES)
+        if bform.is_valid():
+            bform.save()
+            return redirect('core:brand')
+
+    return render(request, 'back/Create_Brand.html', {'bform': bform})
+
+
+# update a product by form CRUD
+def updateProduct(request, slug):
+    if request.method == 'POST':
+        name = request.POST['name']
+        slug = request.POST['slug']
+        price = request.POST['price']
+        tag = request.POST['tag']
+        details = request.POST['details']
+        img = request.FILES['image']
+        if len(request.POST['offer']) != 0:
+            offer = request.POST['offer']
+            o = Product(offer_price=offer)
+            o.save()
+
+        p = Product.objects.create(prod_name=name, prod_slug=slug,
+                                   prod_price=price, prod_tag=tag, prod_details=details, prod_img=img)
+        p.save()
+
+    return render(request, 'back/updateProduct.html')

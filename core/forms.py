@@ -1,16 +1,20 @@
 from django import forms
-from .models import Product
+from .models import Product, Category, Brand
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = [
-            'prod_name',
-            'prod_slug',
-            'prod_price',
-            'offer_price',
-            'prod_img',
-            'prod_tag',
-            'prod_details',
-        ]
+        fields = '__all__'
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
+class BrandForm(forms.ModelForm):
+    class Meta:
+        model = Brand
+        fields = '__all__'

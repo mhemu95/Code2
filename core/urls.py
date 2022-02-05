@@ -11,7 +11,13 @@ urlpatterns = [
     path('<str:slug>/', views.singlePost, name='single'),
 
     # create a product (CRUD operation)
-    #path('product/add/', views.addProduct, name='add'),
+    path('product/add/', views.addProduct, name='product-add'),
+    path('category/add/', views.addCategory, name='category-add'),
+    path('brand/add/', views.addBrand, name='brand-add'),
+
+    # update
+    path('product/update/<slug:slug>',
+         views.updateProduct, name='update-product'),
 
     # products by brand
     path('collection/<slug:slug>/', views.collections, name='collection'),
