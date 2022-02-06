@@ -153,20 +153,4 @@ def addBrand(request):
 
 # update a product by form CRUD
 def updateProduct(request, slug):
-    if request.method == 'POST':
-        name = request.POST['name']
-        slug = request.POST['slug']
-        price = request.POST['price']
-        tag = request.POST['tag']
-        details = request.POST['details']
-        img = request.FILES['image']
-        if len(request.POST['offer']) != 0:
-            offer = request.POST['offer']
-            o = Product(offer_price=offer)
-            o.save()
-
-        p = Product.objects.create(prod_name=name, prod_slug=slug,
-                                   prod_price=price, prod_tag=tag, prod_details=details, prod_img=img)
-        p.save()
-
     return render(request, 'back/updateProduct.html')
