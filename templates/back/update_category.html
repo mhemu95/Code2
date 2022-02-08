@@ -2,15 +2,15 @@
 
 {% load static %}
 
-{% block title %} CarSite|Update Product {% endblock %}
+{% block title %} CarSite|Update Category {% endblock %}
 
 {% block content %}
     <div class="text-center">
-        <h2>Update {{prod.prod_name}} </h2>
+        <h2>Update {{category.category_name}} </h2>
         <p>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="" method="post">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{cform.as_p}}
                 <input type="submit" value="Update">
             </form>
         </p>

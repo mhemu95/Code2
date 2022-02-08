@@ -16,8 +16,17 @@ urlpatterns = [
     path('brand/add/', views.addBrand, name='brand-add'),
 
     # update
-    path('product/update/<slug:slug>',
+    path('product/update/<slug:slug>/',
          views.updateProduct, name='update-product'),
+    path('category/update/<slug:slug>/',
+         views.updateCategory, name='update-category'),
+    path('brand/update/<slug:slug>/',
+         views.updateBrand, name='update-brand'),
+
+    # delete a product
+    path('product/delete/<slug:slug>/', views.deleteProduct, name='delete-product'),
+    path('category/delete/<slug:slug>/', views.deleteCategory, name='delete-category'),
+    path('category/brand/<slug:slug>/', views.deleteBrand, name='delete-brand'),
 
     # products by brand
     path('collection/<slug:slug>/', views.collections, name='collection'),

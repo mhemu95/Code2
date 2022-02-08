@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} CarSite|Delete Product {% endblock title %}
+
+{% block content %}
+        <div class="text-center">
+            <h2>Delete {{obj2}} {{obj}} ? </h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+            <a href=" {{request.META.HTTP_REFERER}} ">Cancel</a>
+        </div>
+{% endblock %}

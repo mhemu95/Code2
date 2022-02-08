@@ -44,7 +44,7 @@ def brand(request):
 
 # product categories
 def category(request):
-    category = Category.objects.all()
+    category = Category.objects.filter(category_status=True)
 
     context = {
         'category': category
@@ -153,4 +153,73 @@ def addBrand(request):
 
 # update a product by form CRUD
 def updateProduct(request, slug):
-    return render(request, 'back/updateProduct.html')
+    prod = Product.objects.get(prod_slug=slug)
+    form = ProductForm(instance=prod)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=prod)
+        if form.is_valid():
+            form.save()
+            return redirect('core:home')
+
+    return render(request, 'back/updateProduct.html', {'prod':prod, 'form':form})
+
+# update a category by form CRUD
+def updateCategory(request, slug):
+    category = Category.objects.get(category_slug=slug)
+    cform = CategoryForm(instance=category)
+    if request.method == 'POST':
+        cform = CategoryForm(request.POST, instance=category)
+        if cform.is_valid():
+            cform.save()
+            return redirect('core:category')
+
+    return render(request, 'back/update_category.html', {'category':category, 'cform':cform})
+
+
+# update a brand by form CRUD
+def updateBrand(request, slug):
+    brand = Brand.objects.get(brand_slug=slug)
+    bform = BrandForm(instance=brand)
+    if request.method == 'POST':
+        bform = BrandForm(request.POST, request.FILES, instance=brand)
+        if bform.is_valid():
+            bform.save()
+            return redirect('core:brand')
+
+    return render(request, 'back/update_brand.html', {'brand':brand, 'bform':bform}) 
+
+
+# Delete a product CRUD
+def deleteProduct(request, slug):
+    obj = Product.objects.get(prod_slug=slug)
+    obj2 = 'Product'
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('core:home')
+
+    return render(request, 'back/delete.html', {'obj':obj, 'obj2':obj2})
+
+
+# delete a category
+def deleteCategory(request, slug):
+    obj = Category.objects.get(category_slug=slug)
+    obj2 = 'Category'
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('core:category')
+
+    return render(request, 'back/delete.html', {'obj':obj, 'obj2':obj2})
+
+
+# delete a category
+def deleteBrand(request, slug):
+    obj = Brand.objects.get(brand_slug=slug)
+    obj2 = 'Brand'
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('core:category')
+
+    return render(request, 'back/delete.html', {'obj':obj, 'obj2':obj2})
